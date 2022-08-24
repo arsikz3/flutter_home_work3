@@ -12,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,8 +48,6 @@ class _MyHomePageState extends State<MyHomePage> {
             options: CarouselOptions(
               height: height,
               viewportFraction: 1.0,
-              //enlargeCenterPage: false,
-              // autoPlay: false,
             ),
             items: [1, 2, 3, 4, 5].map((i) {
               return Builder(
