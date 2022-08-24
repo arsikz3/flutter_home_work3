@@ -1,9 +1,9 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 // 📦 Package imports:
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shimmer/shimmer.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,7 +12,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Courusel'),
+      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -34,44 +33,54 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int _counter = 0;
+
+  void _incrementCounter() {
+    setState(() {
+      _counter++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(widget.title),
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              height: 300,
+              constraints: const BoxConstraints(),
+              decoration: const BoxDecoration(
+                  color: Colors.blue,
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(
+                          'https://i.pinimg.com/originals/8c/3a/38/8c3a38aa424b8fe31bb5b68da37a0111.jpg'))),
+            ),
+            Shimmer.fromColors(
+              baseColor: Colors.blue,
+              highlightColor: Colors.green,
+              child: const Text(
+                'Текст с эффектом shimer',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 35.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+          ],
         ),
       ),
-      body: Builder(
-        builder: (context) {
-          final double height = MediaQuery.of(context).size.height;
-          return CarouselSlider(
-            options: CarouselOptions(
-              height: height,
-              viewportFraction: 1.0,
-              //enlargeCenterPage: false,
-              // autoPlay: false,
-            ),
-            items: [1, 2, 3, 4, 5].map((i) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                    decoration: const BoxDecoration(
-                      color: Colors.grey,
-                    ),
-                    child: SvgPicture.asset(
-                      'assets/svg/rate.svg',
-                      height: 100,
-                      width: 100,
-                    ),
-                  );
-                },
-              );
-            }).toList(),
-          );
-        },
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: SvgPicture.asset(
+          'assets/svg/rate.svg',
+          width: 50,
+          height: 50,
+        ),
       ),
     );
   }
