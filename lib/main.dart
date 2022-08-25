@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 // 📦 Package imports:
 import 'package:shimmer/shimmer.dart';
+import 'package:flutter_home_work3/conert_string.dart';
 
 void main() {
   runApp(const MyApp());
@@ -66,7 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          print(getNumsByString('1 02.30.1.3'));
+        },
         tooltip: 'Increment',
         child: SvgPicture.asset(
           'assets/svg/rate.svg',
